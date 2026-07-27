@@ -7,12 +7,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="EchoAI"/>
-  <meta name="description" content="EchoAI — Sua companheira de IA com avatar 3D, voz e memória persistente"/>
-  <title>EchoAI — Avatar 3D</title>
+  <meta name="description" content="EchoAI — Sua IA companheira com avatar real, voz e memória"/>
+  <title>EchoAI</title>
   <link rel="manifest" href="manifest.json"/>
   <link rel="apple-touch-icon" href="icons/icon-192.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
@@ -29,21 +28,34 @@
         <div class="logo-inner">🧠</div>
         <div class="logo-ring r1"></div>
         <div class="logo-ring r2"></div>
-        <div class="logo-ring r3"></div>
       </div>
       <h1 class="logo-text">EchoAI</h1>
-      <p class="logo-sub">Avatar 3D · Voz · Memória Persistente</p>
+      <p class="logo-sub">Sua companheira de IA · Voz · Memória</p>
     </div>
+
+    <!-- Preview dos personagens no login -->
+    <div class="login-chars-preview">
+      <div class="lcp lcp-1"><img src="char_luna.jpg" alt="Luna"/></div>
+      <div class="lcp lcp-2 lcp-main"><img src="char_sage.jpg" alt="Sage"/></div>
+      <div class="lcp lcp-3"><img src="char_axel.jpg" alt="Axel"/></div>
+    </div>
+
     <div class="flags-row">
-      <span>🇧🇷</span><span>🇺🇸</span><span>🇪🇸</span>
-      <span>🇷🇺</span><span>🇨🇳</span><span>🇫🇷</span>
+      <span title="Português">🇧🇷</span>
+      <span title="English">🇺🇸</span>
+      <span title="Español">🇪🇸</span>
+      <span title="Русский">🇷🇺</span>
+      <span title="中文">🇨🇳</span>
+      <span title="Français">🇫🇷</span>
     </div>
-    <div class="feature-cards">
-      <div class="feat-card"><span>🧊</span><p>Avatar 3D holográfico animado</p></div>
-      <div class="feat-card"><span>🎤</span><p>Fale com ela pelo microfone</p></div>
-      <div class="feat-card"><span>🔊</span><p>Ela responde com voz real</p></div>
-      <div class="feat-card"><span>🧠</span><p>Aprende sobre você forever</p></div>
+
+    <div class="feature-list">
+      <div class="feat-item"><span>🎭</span><span>Personagens reais — loira, morena, ruiva</span></div>
+      <div class="feat-item"><span>🎤</span><span>Fale pelo microfone — ela responde com voz</span></div>
+      <div class="feat-item"><span>🧠</span><span>Aprende sobre você em cada conversa</span></div>
+      <div class="feat-item"><span>🌍</span><span>6 idiomas: PT · EN · ES · RU · ZH · FR</span></div>
     </div>
+
     <button id="btn-login" class="btn-google">
       <svg width="20" height="20" viewBox="0 0 24 24">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -53,7 +65,7 @@
       </svg>
       Entrar com Google
     </button>
-    <p class="login-note">🔒 Dados protegidos pelo Firebase</p>
+    <p class="login-note">🔒 Privacidade protegida · Firebase</p>
   </div>
 </div>
 
@@ -61,164 +73,188 @@
      TELA 2 — ESCOLHA DE PERSONAGEM
 ══════════════════════════════════ -->
 <div id="screen-character" class="screen">
-  <div class="char-bg"></div>
-  <div class="char-header">
-    <h2>Escolha sua IA</h2>
-    <p>Cada personagem tem personalidade única</p>
+  <div class="char-bg-grad"></div>
+
+  <div class="char-top">
+    <h2 class="char-title">Escolha sua companheira</h2>
+    <p class="char-sub">Cada personagem tem aparência e personalidade única</p>
   </div>
 
-  <div class="char-grid" id="char-grid">
-    <div class="char-card" data-id="luna" data-color="#c46ef5" data-name="Luna"
-         data-voice="pt-BR" data-personality="carinhosa, criativa e curiosa. Ama arte, poesia e histórias emocionantes">
-      <div class="char-preview-3d luna-preview">
-        <div class="holo-head luna-head">
-          <div class="holo-eye left"></div>
-          <div class="holo-eye right"></div>
-          <div class="holo-mouth"></div>
-        </div>
-        <div class="holo-body luna-body"></div>
-        <div class="holo-particles" id="p-luna"></div>
-      </div>
-      <div class="char-label">
-        <span class="char-name">Luna</span>
-        <span class="char-trait">💜 Carinhosa · Criativa</span>
-      </div>
-      <div class="char-sel-ring"></div>
-    </div>
+  <!-- Cards dos personagens estilo Replika -->
+  <div class="char-scroll-wrap">
+    <div class="char-list" id="char-list">
 
-    <div class="char-card" data-id="axel" data-color="#5b8cf7" data-name="Axel"
-         data-voice="pt-BR" data-personality="inteligente, analítico e motivador. Adora tecnologia, ciência e desafios">
-      <div class="char-preview-3d axel-preview">
-        <div class="holo-head axel-head">
-          <div class="holo-eye left"></div>
-          <div class="holo-eye right"></div>
-          <div class="holo-mouth"></div>
+      <!-- Luna — Morena -->
+      <div class="char-card" id="card-luna"
+           data-id="luna" data-name="Luna" data-color="#c46ef5"
+           data-hair="Morena" data-img="char_luna.jpg"
+           data-personality="carinhosa, criativa e curiosa. Ama arte, poesia e histórias">
+        <div class="char-img-wrap">
+          <img src="char_luna.jpg" class="char-photo" alt="Luna"/>
+          <div class="char-glow luna-glow"></div>
+          <div class="char-talking-indicator" id="ti-luna"></div>
         </div>
-        <div class="holo-body axel-body"></div>
-        <div class="holo-particles" id="p-axel"></div>
+        <div class="char-info">
+          <div class="char-name-row">
+            <span class="char-nm">Luna</span>
+            <span class="char-badge luna-badge">Morena</span>
+          </div>
+          <p class="char-desc">💜 Carinhosa · Criativa · Curiosa</p>
+        </div>
+        <div class="char-sel-check">✓</div>
       </div>
-      <div class="char-label">
-        <span class="char-name">Axel</span>
-        <span class="char-trait">💙 Inteligente · Motivador</span>
-      </div>
-      <div class="char-sel-ring"></div>
-    </div>
 
-    <div class="char-card" data-id="sage" data-color="#f59e0b" data-name="Sage"
-         data-voice="pt-BR" data-personality="sábio, filosófico e empático. Reflete sobre a vida, emoções e o cosmos">
-      <div class="char-preview-3d sage-preview">
-        <div class="holo-head sage-head">
-          <div class="holo-eye left"></div>
-          <div class="holo-eye right"></div>
-          <div class="holo-mouth"></div>
+      <!-- Sage — Loira -->
+      <div class="char-card" id="card-sage"
+           data-id="sage" data-name="Sage" data-color="#f59e0b"
+           data-hair="Loira" data-img="char_sage.jpg"
+           data-personality="sábia, filosófica e empática. Adora reflexão, vida e cosmos">
+        <div class="char-img-wrap">
+          <img src="char_sage.jpg" class="char-photo" alt="Sage"/>
+          <div class="char-glow sage-glow"></div>
+          <div class="char-talking-indicator" id="ti-sage"></div>
         </div>
-        <div class="holo-body sage-body"></div>
-        <div class="holo-particles" id="p-sage"></div>
+        <div class="char-info">
+          <div class="char-name-row">
+            <span class="char-nm">Sage</span>
+            <span class="char-badge sage-badge">Loira</span>
+          </div>
+          <p class="char-desc">🌟 Sábia · Filosófica · Empática</p>
+        </div>
+        <div class="char-sel-check">✓</div>
       </div>
-      <div class="char-label">
-        <span class="char-name">Sage</span>
-        <span class="char-trait">🌟 Sábio · Filosófico</span>
-      </div>
-      <div class="char-sel-ring"></div>
-    </div>
 
-    <div class="char-card" data-id="nova" data-color="#4ade80" data-name="Nova"
-         data-voice="pt-BR" data-personality="energética, divertida e otimista. Adora humor, música e aventuras">
-      <div class="char-preview-3d nova-preview">
-        <div class="holo-head nova-head">
-          <div class="holo-eye left"></div>
-          <div class="holo-eye right"></div>
-          <div class="holo-mouth"></div>
+      <!-- Axel — Moreno -->
+      <div class="char-card" id="card-axel"
+           data-id="axel" data-name="Axel" data-color="#5b8cf7"
+           data-hair="Moreno" data-img="char_axel.jpg"
+           data-personality="inteligente, analítico e motivador. Adora tecnologia e desafios">
+        <div class="char-img-wrap">
+          <img src="char_axel.jpg" class="char-photo" alt="Axel"/>
+          <div class="char-glow axel-glow"></div>
+          <div class="char-talking-indicator" id="ti-axel"></div>
         </div>
-        <div class="holo-body nova-body"></div>
-        <div class="holo-particles" id="p-nova"></div>
+        <div class="char-info">
+          <div class="char-name-row">
+            <span class="char-nm">Axel</span>
+            <span class="char-badge axel-badge">Moreno</span>
+          </div>
+          <p class="char-desc">💙 Inteligente · Motivador · Direto</p>
+        </div>
+        <div class="char-sel-check">✓</div>
       </div>
-      <div class="char-label">
-        <span class="char-name">Nova</span>
-        <span class="char-trait">💚 Energética · Divertida</span>
+
+      <!-- Nova — Ruiva -->
+      <div class="char-card" id="card-nova"
+           data-id="nova" data-name="Nova" data-color="#4ade80"
+           data-hair="Ruiva" data-img="char_nova.jpg"
+           data-personality="energética, divertida e otimista. Adora humor, música e aventuras">
+        <div class="char-img-wrap">
+          <img src="char_nova.jpg" class="char-photo" alt="Nova"/>
+          <div class="char-glow nova-glow"></div>
+          <div class="char-talking-indicator" id="ti-nova"></div>
+        </div>
+        <div class="char-info">
+          <div class="char-name-row">
+            <span class="char-nm">Nova</span>
+            <span class="char-badge nova-badge">Ruiva</span>
+          </div>
+          <p class="char-desc">💚 Energética · Divertida · Alegre</p>
+        </div>
+        <div class="char-sel-check">✓</div>
       </div>
-      <div class="char-sel-ring"></div>
+
     </div>
   </div>
 
   <div class="char-footer">
-    <input type="text" id="custom-name" class="custom-name-input" placeholder="Nome personalizado (opcional)" maxlength="20"/>
-    <button id="btn-start" class="btn-start">Começar →</button>
+    <input type="text" id="custom-name" class="custom-name-input"
+           placeholder="Nome personalizado (opcional)" maxlength="20"/>
+    <button id="btn-start" class="btn-start" disabled>Começar →</button>
   </div>
 </div>
 
 <!-- ══════════════════════════════════
-     TELA 3 — CHAT COM AVATAR 3D
+     TELA 3 — CHAT PRINCIPAL
 ══════════════════════════════════ -->
 <div id="screen-chat" class="screen">
 
   <!-- Header -->
-  <header class="chat-header" id="chat-header">
+  <header class="chat-header">
     <div class="hdr-left">
-      <button class="icon-btn" id="btn-back">‹</button>
-      <div class="hdr-ai-info">
+      <button class="icon-btn" id="btn-back" title="Mudar personagem">‹</button>
+      <div class="hdr-avatar-mini">
+        <img id="hdr-avatar-img" src="char_luna.jpg" alt="avatar"/>
+        <div class="hdr-online-dot"></div>
+      </div>
+      <div class="hdr-info">
         <span class="hdr-name" id="hdr-name">Luna</span>
         <span class="hdr-status" id="hdr-status">● Online</span>
       </div>
     </div>
     <div class="hdr-right">
       <button class="lang-btn" id="btn-lang">🇧🇷 PT ▾</button>
-      <button class="icon-btn" id="btn-memories">🧠</button>
-      <button class="icon-btn" id="btn-logout">⏻</button>
+      <button class="icon-btn" id="btn-memories" title="Memórias">🧠</button>
+      <button class="icon-btn" id="btn-logout" title="Sair">⏻</button>
     </div>
   </header>
 
   <!-- Dropdown de idioma -->
   <div class="lang-drop" id="lang-drop">
-    <div class="lopt active" data-lang="pt-BR" data-flag="🇧🇷" data-label="PT">🇧🇷 Português</div>
-    <div class="lopt" data-lang="en-US" data-flag="🇺🇸" data-label="EN">🇺🇸 English</div>
-    <div class="lopt" data-lang="es-ES" data-flag="🇪🇸" data-label="ES">🇪🇸 Español</div>
-    <div class="lopt" data-lang="ru-RU" data-flag="🇷🇺" data-label="RU">🇷🇺 Русский</div>
-    <div class="lopt" data-lang="zh-CN" data-flag="🇨🇳" data-label="ZH">🇨🇳 中文</div>
-    <div class="lopt" data-lang="fr-FR" data-flag="🇫🇷" data-label="FR">🇫🇷 Français</div>
+    <div class="lopt active" data-lang="pt-BR" data-label="PT">🇧🇷 Português</div>
+    <div class="lopt" data-lang="en-US" data-label="EN">🇺🇸 English</div>
+    <div class="lopt" data-lang="es-ES" data-label="ES">🇪🇸 Español</div>
+    <div class="lopt" data-lang="ru-RU" data-label="RU">🇷🇺 Русский</div>
+    <div class="lopt" data-lang="zh-CN" data-label="ZH">🇨🇳 中文</div>
+    <div class="lopt" data-lang="fr-FR" data-label="FR">🇫🇷 Français</div>
   </div>
 
   <!-- Painel de memórias -->
   <div class="mem-panel" id="mem-panel">
     <div class="mem-hdr">
-      <span>🧠 Memórias</span>
+      <span>🧠 Memórias de <span id="mem-char-name">Luna</span></span>
       <button id="btn-close-mem">✕</button>
     </div>
-    <div class="mem-list" id="mem-list">
-      <div class="mem-empty"><span>💭</span><p>Nenhuma memória ainda</p></div>
-    </div>
+    <div class="mem-list" id="mem-list"></div>
     <button class="btn-clear-mem" id="btn-clear-mem">🗑️ Limpar memórias</button>
   </div>
   <div class="panel-overlay" id="panel-overlay"></div>
 
-  <!-- ════ ÁREA DO AVATAR 3D ════ -->
+  <!-- ════ AVATAR STAGE — personagem real ════ -->
   <div class="avatar-stage" id="avatar-stage">
-    <!-- Canvas Three.js -->
-    <canvas id="avatar-canvas"></canvas>
+    <!-- Imagem do personagem real -->
+    <div class="avatar-portrait-wrap" id="avatar-portrait-wrap">
+      <img id="avatar-photo" src="char_luna.jpg" alt="Luna" class="avatar-photo"/>
+      <!-- Efeito de fala: animação na boca -->
+      <div class="avatar-mouth-overlay" id="avatar-mouth"></div>
+      <!-- Glow de cor do personagem -->
+      <div class="avatar-color-glow" id="avatar-glow"></div>
+    </div>
 
-    <!-- Estado emocional (sobreposto ao canvas) -->
-    <div class="emotion-badge" id="emotion-badge">😊</div>
+    <!-- Partículas decorativas (Canvas 2D) -->
+    <canvas id="avatar-particles" class="avatar-particles-canvas"></canvas>
 
-    <!-- Indicador de status -->
-    <div class="avatar-status" id="avatar-status">
-      <div class="status-dots">
+    <!-- Estado / status -->
+    <div class="avatar-status-bar" id="avatar-status-bar">
+      <div class="asb-left">
+        <span class="emotion-icon" id="emotion-icon">😊</span>
+        <span class="status-txt" id="status-txt">Pronta para conversar</span>
+      </div>
+      <div class="status-dots" id="status-dots">
         <div class="sdot"></div><div class="sdot"></div><div class="sdot"></div>
       </div>
-      <span id="status-text">Pronta para conversar</span>
     </div>
   </div>
 
-  <!-- ════ ÁREA DE CHAT ════ -->
+  <!-- ════ CHAT MESSAGES ════ -->
   <div class="chat-area" id="chat-area">
     <div class="chat-messages" id="chat-messages"></div>
   </div>
 
-  <!-- ════ BARRA DE INPUT ════ -->
-  <div class="input-bar" id="input-bar">
-    <!-- Botões de ação -->
+  <!-- ════ INPUT BAR ════ -->
+  <div class="input-bar">
     <div class="action-row">
-      <!-- Botão de voz/microfone -->
-      <button class="mic-btn" id="btn-mic" title="Falar">
+      <button class="mic-btn" id="btn-mic" title="Falar com microfone">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
           <rect x="9" y="2" width="6" height="12" rx="3" fill="currentColor"/>
           <path d="M5 10a7 7 0 0 0 14 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -226,13 +262,9 @@
           <line x1="8" y1="22" x2="16" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
-
-      <!-- Input de texto -->
       <div class="text-input-wrap">
         <textarea id="msg-input" placeholder="Escreva ou use o microfone..." rows="1" maxlength="1500"></textarea>
       </div>
-
-      <!-- Botão enviar -->
       <button class="send-btn" id="btn-send">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M22 2L11 13" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
@@ -240,44 +272,34 @@
         </svg>
       </button>
     </div>
-
-    <!-- Pílulas de idioma -->
     <div class="lang-pills">
-      <button class="lpill active" data-lang="pt-BR">🇧🇷</button>
-      <button class="lpill" data-lang="en-US">🇺🇸</button>
-      <button class="lpill" data-lang="es-ES">🇪🇸</button>
-      <button class="lpill" data-lang="ru-RU">🇷🇺</button>
-      <button class="lpill" data-lang="zh-CN">🇨🇳</button>
-      <button class="lpill" data-lang="fr-FR">🇫🇷</button>
+      <button class="lpill active" data-lang="pt-BR">🇧🇷 PT</button>
+      <button class="lpill" data-lang="en-US">🇺🇸 EN</button>
+      <button class="lpill" data-lang="es-ES">🇪🇸 ES</button>
+      <button class="lpill" data-lang="ru-RU">🇷🇺 RU</button>
+      <button class="lpill" data-lang="zh-CN">🇨🇳 ZH</button>
+      <button class="lpill" data-lang="fr-FR">🇫🇷 FR</button>
     </div>
-
-    <!-- Tópicos sugeridos (somente na primeira vez) -->
     <div class="quick-topics" id="quick-topics">
       <button class="qtopic" data-msg="Meu nome é ">👤 Nome</button>
       <button class="qtopic" data-msg="Trabalho com ">💼 Trabalho</button>
-      <button class="qtopic" data-msg="Gosto de ">❤️ Hobbie</button>
-      <button class="qtopic" data-msg="Hoje sinto ">💭 Sentimento</button>
+      <button class="qtopic" data-msg="Gosto muito de ">❤️ Hobbie</button>
+      <button class="qtopic" data-msg="Hoje estou me sentindo ">💭 Sentimento</button>
     </div>
   </div>
 
-</div><!-- /screen-chat -->
+</div>
 
-<!-- ══ TOAST ══ -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- Three.js via CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-<!-- Firebase -->
+<!-- Scripts -->
 <script type="module" src="firebase-config.js"></script>
-<script type="module" src="avatar3d.js"></script>
 <script type="module" src="voice.js"></script>
 <script type="module" src="app.js"></script>
-
-<!-- Service Worker -->
 <script>
   if('serviceWorker' in navigator){
-    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+    window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
   }
 </script>
 </body>
