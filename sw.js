@@ -1,5 +1,5 @@
 const CACHE = 'echoai3d-v1';
-const ASSETS = ['/', '/index.html', '/style.css', '/app.js', '/avatar3d.js', '/voice.js', '/firebase-config.js', '/manifest.json'];
+const ASSETS = ['./', './index.html', './style.css', './app.js', './avatar3d.js', './voice.js', './firebase-config.js', './manifest.json'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
