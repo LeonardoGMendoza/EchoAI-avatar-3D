@@ -12,7 +12,7 @@ import { doc, getDoc, setDoc, collection, addDoc, getDocs, orderBy, query, limit
 //  ⚠️  COLOQUE SUA CHAVE GEMINI AQUI
 //  Acesse: https://aistudio.google.com/app/apikey
 // ──────────────────────────────────────────────────────────
-const GEMINI_KEY = "AQ.Ab8RN6I0hTjwd7Z3I6Tmap2Bxx6WfEwyu9RnfQuA011aF0NNUA";
+const GEMINI_KEY = "AQ.Ab8RN6LzAQkxZjtu6U9H2FSX4XW1N1GPzQ6t7r8pv_pGgaE99g";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
 
 // ── Estado global ──
