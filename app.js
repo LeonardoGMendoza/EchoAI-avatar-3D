@@ -14,7 +14,7 @@ import { doc, getDoc, setDoc, collection, addDoc, getDocs, orderBy, query, limit
 //  e o app chama essa função em vez da API do Google direto.
 //  Ajuste a URL abaixo depois de rodar `firebase deploy --only functions`.
 // ──────────────────────────────────────────────────────────
-const CLOUD_FUNCTION_URL = "https://us-central1-echoai-678a0.cloudfunctions.net/geminiProxy";
+const CLOUD_FUNCTION_URL = "https://groq-proxy.leonardogmendoza.workers.dev";
 
 // ── Estado global ──
 let currentUser = null;
