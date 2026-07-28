@@ -9,11 +9,12 @@ import { signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstati
 import { doc, getDoc, setDoc, collection, addDoc, getDocs, orderBy, query, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // ──────────────────────────────────────────────────────────
-//  ⚠️  COLOQUE SUA CHAVE GEMINI AQUI
-//  Acesse: https://aistudio.google.com/app/apikey
+//  🔒 A chave do Gemini NÃO fica mais aqui.
+//  Ela vive protegida no servidor (Firebase Cloud Functions),
+//  e o app chama essa função em vez da API do Google direto.
+//  Ajuste a URL abaixo depois de rodar `firebase deploy --only functions`.
 // ──────────────────────────────────────────────────────────
-const GEMINI_KEY = "AQ.Ab8RN6I-s3ydT-V62kHImy7L8z-PEgYUQ7pHvtR2iNfzwZBSog";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
+const CLOUD_FUNCTION_URL = "https://us-central1-echoai-678a0.cloudfunctions.net/geminiProxy";
 
 // ── Estado global ──
 let currentUser = null;
@@ -387,14 +388,14 @@ async function sendMessage() {
   } catch(err) {
     typing.remove(); setAvatarState('idle');
     console.error(err);
-    addMsg('ai', '⚠️ Erro de conexão. Verifique sua chave Gemini em app.js.');
+    addMsg('ai', '⚠️ Erro de conexão. Tente novamente em instantes.');
   }
 
   $('btn-send').disabled = false;
 }
 
 // ═══════════════════════════════════════
-//  GEMINI
+//  GEMINI (via Cloud Function — chave protegida no servidor)
 // ═══════════════════════════════════════
 function buildPrompt() {
   const langName = LANGS[currentLang]?.name || 'Português';
@@ -420,7 +421,8 @@ async function callGemini(systemPrompt) {
     { role:'model', parts:[{text:`Olá! Sou ${currentChar.name}! 💜`}] },
     ...chatHistory
   ];
-  const res = await fetch(GEMINI_URL, {
+
+  const res = await fetch(CLOUD_FUNCTION_URL, {
     method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({
       contents: msgs,
@@ -495,7 +497,7 @@ Se não houver nada, retorne [].
 Mensagem: "${text}"
 Retorne APENAS o JSON, sem nada mais.`;
   try {
-    const res = await fetch(GEMINI_URL, {
+    const res = await fetch(CLOUD_FUNCTION_URL, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({contents:[{role:'user',parts:[{text:prompt}]}],generationConfig:{temperature:0.1,maxOutputTokens:150}})
     });
